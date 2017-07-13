@@ -10,117 +10,232 @@ namespace Hospital
     {
         static void Main(string[] args)
         {
-            List<string> sobeler = new List<string>() {
-                "1. Kardiologiya",
-                "2. Travmatologiya",
-                "3. Radiologiya"
-            };
-            List<string> kardiologiya = new List<string>()
-            {
-                "Memmed Memmedov", "Hikmet Hikmetov", "Filankes Filankesov"
-            };
-            List<string> tramvatologiya = new List<string>() {
-                "Semed Vurgunov", "Fexreddin Zeynalov", "Gulcicek Israfilova"
-            };
-            List<string> radiologiya = new List<string>()
-            {
-                "Sevgi Toppusova", "Refiqe Filova", "Gulbahar Qarisqaova"
-            };
+            Sobe some = new Sobe();
+        }
+    }
+    class Sobe
+    {
+        public List<string> shobeName = new List<string>() {
+            "Pediatriya", "Stomatologiya", "Terapiya"
+        };
+        public List<string> pediatriyaDoctors = new List<string>()
+        {
+            "Fikret Hesenov", "Ruslan Bedelov", "Murad Tagiyev"
+        };
+        public List<string> stomatologiyaDoctors = new List<string>()
+        {
+            "Nusret Orucov", "Tamerlan Allahverdiyev", "Aleksey Kuznetsov"
+        };
+        public List<string> terapiyaDoctors = new List<string>()
+        {
+            "Michael Connor", "William Shapes", "Andrew Lincoln"
+        };
 
-            Console.WriteLine("Sobeler siyahisini gormek ucun 1 duymesini basin.");
-            string prompt = Console.ReadLine();
-            Console.WriteLine(new string('-', 30));
+        public Sobe()
+        {
+            ShowMenu();
+        }
 
-            if (prompt == "1")
+        public void ShowShobeler()
+        {
+            foreach (var item in shobeName)
             {
-                foreach (var item in sobeler)
-                {
-                    Console.WriteLine(item);
-                }
+                Console.WriteLine(item);
             }
-            else
-            {
-                Console.WriteLine("Duzgun deyer girmemisiniz.");
-            }
-            Console.WriteLine("Sobe secmek ucun 1 ve 3 arasinda reqem daxil edin: ");
-            string prompt2 = Console.ReadLine();
-            Console.WriteLine(new string('-', 30));
-            if (prompt2 == "1")
-            {
-                foreach (var item in kardiologiya)
-                {
-                    Console.WriteLine(item);
-                }
-                EmeliyyatSecimi(kardiologiya);
-            }
-            else if (prompt2 == "2")
-            {
-                foreach (var item in tramvatologiya)
-                {
-                    Console.WriteLine(item);
-                }
-                EmeliyyatSecimi(tramvatologiya);
-            }
-            else if (prompt2 == "3")
-            {
-                foreach (var item in radiologiya)
-                {
-                    Console.WriteLine(item);
-                }
-                EmeliyyatSecimi(radiologiya);
-            }
-            else
-            {
-                Console.WriteLine("Duzgun deyer girmemisiniz.");
-            }
+        }
 
-            
-
-
-            void EmeliyyatSecimi(List<string> some)
+        public void ShowDoctors(List<string> someList)
+        {
+            foreach (var item in someList)
             {
-                Console.WriteLine();
-                Console.WriteLine("Emeliyyat secin: ");
-                Console.Write("1. Hekim elave et ");
-                Console.WriteLine("2. Hekimi sec ");
-                string prompt3 = Console.ReadLine();
-                Console.WriteLine(new string('-', 30));
-                if (prompt3 == "1")
-                {
-                    Console.WriteLine("Hekimin adini ve soyadini daxil edin.");
-                    some.Add(Console.ReadLine());
-                    Console.WriteLine(new string('-', 30));
-                    foreach (var item in some)
+                Console.WriteLine(item);
+            }
+        }
+
+        public void ShowMenu()
+        {
+            Console.WriteLine("1. Shobeleri goster");
+            Console.WriteLine("2. Shobe elave et");
+            Console.WriteLine("3. Shobe sil");
+            Console.WriteLine("4. Shobe melumatlarini deyis");
+            Console.WriteLine("5. Hekim goster");
+            Console.WriteLine("6. Hekim elave et");
+            Console.WriteLine("7. Hekim sil");
+            Console.WriteLine("8. Hekim melumatlarini deyis");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    show
+                    break;
+                case "2":
+                    Console.Write("Shobenin adini daxil edin: ");
+                    string newShobe = Console.ReadLine();
+                    shobeName.Add(newShobe);
+                    Console.WriteLine("Emeliyyat ugurla kecdi.");
+                    ShowShobeler();
+                    break;
+                case "3":
+                    Console.WriteLine("Hansi shobe?");
+                    int whichToDelete = Convert.ToInt32(Console.ReadLine());
+                    if (whichToDelete > 0 && whichToDelete <= shobeName.Count)
                     {
-                        Console.WriteLine(item);
-                    }
-                }
-                else if (prompt3 == "2")
-                {
-                    Console.WriteLine("Hansi hekim?");
-                    int prompt4 = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine(new string('-', 30));
-                    if (prompt4 > 0 && prompt4 <= 3)
-                    {
-                        Console.WriteLine(some[--prompt4]);
-                        Console.WriteLine("Hekimi silmek ucun delete yazin");
-                        string prompt5 = Console.ReadLine();
-                        Console.WriteLine(new string('-', 30));
-                        if (prompt5 == "delete")
-                        {
-                            some.RemoveAt(prompt4);
-                            foreach (var item in some)
-                            {
-                                Console.WriteLine(item);
-                            }
-                        }
+                        shobeName.RemoveAt(--whichToDelete);
                     }
                     else
                     {
                         Console.WriteLine("Duzgun deyer girmemisiniz.");
+                        goto case "3";
                     }
-                    
-                }
+                    ShowShobeler();
+                    break;
+                case "4":
+                    Console.WriteLine("Hansi shobe?");
+                    int whichToUpdate = Convert.ToInt32(Console.ReadLine());
+                    if (whichToUpdate > 0 && whichToUpdate <= shobeName.Count)
+                    {
+                        shobeName.RemoveAt(--whichToUpdate);
+                        Console.WriteLine("Shobeye yeni ad yazin.");
+                        newShobe = Console.ReadLine();
+                        shobeName.Add(newShobe);
+                        Console.WriteLine("Emeliyyat ugurla kecdi.");
+                        ShowShobeler();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Duzgun deyer girmemisiniz.");
+                        goto case "4";
+                    }
+                    break;
+                case "5":
+                    Console.WriteLine("Hansi shobenin hekimlerini?");
+                    ShowShobeler();
+                    int addDoctors = Convert.ToInt32(Console.ReadLine());
+                    switch (shobeName[--addDoctors])
+                    {
+                        case "Pediatriya":
+                            ShowDoctors(pediatriyaDoctors);
+                            break;
+                        case "Stomatologiya":
+                            ShowDoctors(stomatologiyaDoctors);
+                            break;
+                        case "Terapiya":
+                            ShowDoctors(terapiyaDoctors);
+                            break;
+                        default:
+                            Console.WriteLine("Duzgun deyer girmemisiniz.");
+                            break;
+                    }
+                    break;
+                case "6":
+                    Console.WriteLine("Hansi shobeye?");
+                    ShowShobeler();
+                    addDoctors = Convert.ToInt32(Console.ReadLine());
+                    string doctorName;
+                    switch (shobeName[--addDoctors])
+                    {
+                        case "Pediatriya":
+                            Console.WriteLine("Hekimin adini ve soyadini yazin.");
+                            doctorName = Console.ReadLine();
+                            pediatriyaDoctors.Add(doctorName);
+                            Console.WriteLine("Emeliyyet ugurla kecdi.");
+                            ShowDoctors(pediatriyaDoctors);
+                            break;
+                        case "Stomatologiya":
+                            Console.WriteLine("Hekimin adini ve soyadini yazin.");
+                            doctorName = Console.ReadLine();
+                            stomatologiyaDoctors.Add(doctorName);
+                            Console.WriteLine("Emeliyyet ugurla kecdi.");
+                            ShowDoctors(stomatologiyaDoctors);
+                            break;
+                        case "Terapiya":
+                            Console.WriteLine("Hekimin adini ve soyadini yazin.");
+                            doctorName = Console.ReadLine();
+                            terapiyaDoctors.Add(doctorName);
+                            Console.WriteLine("Emeliyyet ugurla kecdi.");
+                            ShowDoctors(terapiyaDoctors);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                case "7":
+                    Console.WriteLine("Hansi shobeden?");
+                    ShowShobeler();
+                    whichToDelete = Convert.ToInt32(Console.ReadLine());
+                    switch (shobeName[--whichToDelete])
+                    {
+                        case "Pediatriya":
+                            ShowDoctors(pediatriyaDoctors);
+                            Console.WriteLine("Hansi hekimi silmek isteyirsiniz?");
+                            whichToDelete = Convert.ToInt32(Console.ReadLine());
+                            pediatriyaDoctors.RemoveAt(--whichToDelete);
+                            Console.WriteLine("Emeliyyat ugurla kecdi.");
+                            ShowDoctors(pediatriyaDoctors);
+                            break;
+                        case "Stomatologiya":
+                            ShowDoctors(stomatologiyaDoctors);
+                            Console.WriteLine("Hansi hekimi silmek isteyirsiniz?");
+                            whichToDelete = Convert.ToInt32(Console.ReadLine());
+                            stomatologiyaDoctors.RemoveAt(--whichToDelete);
+                            Console.WriteLine("Emeliyyat ugurla kecdi.");
+                            ShowDoctors(stomatologiyaDoctors);
+                            break;
+                        case "Terapiya":
+                            ShowDoctors(terapiyaDoctors);
+                            Console.WriteLine("Hansi hekimi silmek isteyirsiniz?");
+                            whichToDelete = Convert.ToInt32(Console.ReadLine());
+                            terapiyaDoctors.RemoveAt(--whichToDelete);
+                            Console.WriteLine("Emeliyyat ugurla kecdi.");
+                            ShowDoctors(terapiyaDoctors);
+                            break;
+                    }
+                    break;
+                case "8":
+                    Console.WriteLine("Hansi sobeden?");
+                    ShowShobeler();
+                    whichToUpdate = Convert.ToInt32(Console.ReadLine());
+                    switch (shobeName[--whichToUpdate])
+                    {
+                        case "Pediatriya":
+                            ShowDoctors(pediatriyaDoctors);
+                            Console.WriteLine("Hansi hekimi deyismek isteyirsiniz?");
+                            whichToUpdate = Convert.ToInt32(Console.ReadLine());
+                            pediatriyaDoctors.RemoveAt(--whichToUpdate);
+                            Console.WriteLine("Yeni ad soyad verin.");
+                            string pediatriyaDoctorName = Console.ReadLine();
+                            pediatriyaDoctors.Insert(whichToUpdate, pediatriyaDoctorName);
+                            Console.WriteLine("Emeliyyat ugurla kecdi.");
+                            ShowDoctors(pediatriyaDoctors);
+                            break;
+                        case "Stomatologiya":
+                            ShowDoctors(stomatologiyaDoctors);
+                            Console.WriteLine("Hansi hekimi deyismek isteyirsiniz?");
+                            whichToUpdate = Convert.ToInt32(Console.ReadLine());
+                            stomatologiyaDoctors.RemoveAt(--whichToUpdate);
+                            Console.WriteLine("Yeni ad soyad verin.");
+                            string stomatologiyaDoctorName = Console.ReadLine();
+                            stomatologiyaDoctors.Insert(whichToUpdate, stomatologiyaDoctorName);
+                            Console.WriteLine("Emeliyyat ugurla kecdi.");
+                            ShowDoctors(stomatologiyaDoctors);
+                            break;
+                        case "Terapiya":
+                            ShowDoctors(terapiyaDoctors);
+                            Console.WriteLine("Hansi hekimi deyismek isteyirsiniz?");
+                            whichToUpdate = Convert.ToInt32(Console.ReadLine());
+                            terapiyaDoctors.RemoveAt(--whichToUpdate);
+                            Console.WriteLine("Yeni ad soyad verin.");
+                            string terapiyaDoctorName = Console.ReadLine();
+                            terapiyaDoctors.Insert(whichToUpdate, terapiyaDoctorName);
+                            Console.WriteLine("Emeliyyat ugurla kecdi.");
+                            ShowDoctors(terapiyaDoctors);
+                            break;
+                    }
+                    break;
+                default:
+                    Console.WriteLine("Duzgun deyer girmemisiniz.");
+                    break;
             }
         }
     }
